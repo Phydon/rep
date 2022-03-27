@@ -7,13 +7,9 @@ fn main() {
     let mut cmd_container = Vec::new();
 
     for arg in env::args().skip(1) {
-        if arg == String::from("rep") {
-            env_args.push(arg);
-        } else {
             let arg_cont = arg.clone();
             cmd_container.push(arg_cont);
             env_args.push(arg);
-        }
     }
     
     if env_args.is_empty() {
@@ -21,15 +17,10 @@ fn main() {
         std::process::exit(1);
     }
 
-    println!("Container: {:?}", cmd_container);
-
-    let cmd = &env_args[1];
-    let params = &env_args[2..];
+    let cmd = &env_args[0];
+    let parameters = &env_args[1..];
     
-    println!("cmd: {:?}", cmd);
-    println!("params: {:?}", params);
-
-    execute_command(&cmd, &params);
+    execute_command(&cmd, &parameters);
 }
 
 fn execute_command(cmd: &String, parameters: &[String]) {
@@ -37,6 +28,13 @@ fn execute_command(cmd: &String, parameters: &[String]) {
         todo!()
         // Command::new("ls").arg("-a").arg("-l").status().unwrap();
     } else {
-        Command::new(cmd).args(parameters).status().unwrap();
+        let output = Command::new(cmd).args(parameters).status();
+        match output {
+            Ok(ok) => ok,
+            Err(_) => {
+                eprintln!("Unknown command: {:} {:}", cmd, parameters.join(" "));
+                std::process::exit(1);
+            }
+        };
     }
 }
