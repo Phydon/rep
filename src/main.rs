@@ -13,7 +13,7 @@ fn main() {
     }
     
     if env_args.is_empty() {
-        eprintln!("Nothing given");
+        eprintln!("USAGE rep <COMMAND> <FLAGS>");
         std::process::exit(1);
     }
 
@@ -26,7 +26,6 @@ fn main() {
 fn execute_command(cmd: &String, parameters: &[String]) {
     if cfg!(target_os = "windows") {
         todo!()
-        // Command::new("ls").arg("-a").arg("-l").status().unwrap();
     } else {
         let output = Command::new(cmd).args(parameters).status();
         match output {
