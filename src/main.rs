@@ -7,9 +7,9 @@ fn main() {
     let mut cmd_container = Vec::new();
 
     for arg in env::args().skip(1) {
-            let arg_cont = arg.clone();
-            cmd_container.push(arg_cont);
-            env_args.push(arg);
+        let arg_cont = arg.clone();
+        cmd_container.push(arg_cont);
+        env_args.push(arg);
     }
     
     if env_args.is_empty() {
