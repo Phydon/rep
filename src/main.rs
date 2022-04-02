@@ -13,7 +13,7 @@ fn main() {
     }
     
     if env_args.is_empty() {
-        eprintln!("USAGE rep <COMMAND> <FLAGS>");
+        eprintln!("USAGE: rep <COMMAND> <FLAGS>");
         std::process::exit(1);
     }
 
@@ -27,6 +27,9 @@ fn execute_command(cmd: &String, parameters: &[String]) {
     if cfg!(target_os = "windows") {
         todo!()
     } else {
+        // may cause problems with selfmade aliases
+        // e.g. error: "unknown command: sf"
+        // -> defining aliases as ENV variables could solve this
         let output = Command::new(cmd).args(parameters).status();
         match output {
             Ok(ok) => ok,
