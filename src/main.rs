@@ -42,7 +42,7 @@ fn execute_command(cmd: &String, parameters: &[String]) {
 }
 
 fn log_cmd(cmd_list: &mut Vec<String>) -> io::Result<()> {
-    let file_path = "/home/phydon/main/rep/cmd_log.txt";
+    let file_path = "./cmd_log.txt";
 
     let mut file = fs::OpenOptions::new()
         .append(true)
